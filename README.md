@@ -31,7 +31,7 @@
 
 | 平台 | 支持 | 说明 | 下载 |
 | -------- | ----- | ----- | ---- |
-| Android     | ✅    | 手机 Phone 平板 Tablet 电视 TV  | [即将发布]() |
+| Android     | ✅    | 手机 Phone 平板 Tablet 电视 TV  | [下载](https://github.com/944095635/DMC/releases) |
 | iOS         | ⛔    | 暂时无法发布         |  |
 | macOS       | ⛔    | 暂时无法发布         |  |
 | Windows     | ✅    | Windows 7 以上的64位系统. |  |
