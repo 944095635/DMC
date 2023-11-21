@@ -10,6 +10,7 @@
 
 - ## QQ群 623512997
 
+<br></br>
 
 <img src="https://raw.githubusercontent.com/944095635/DMC/master/phone.png" width='360'>
 
@@ -27,12 +28,8 @@
 | 功能 | 支持 | 说明 | 
 | -------- | ----- | ----- |
 | 电视直播     | ✅    |  CCTV + 地方电视台  |
-| 手机操作电视  | ⛔    |  手机选好节目推送到电视播放  |
+| 手机投屏  | ⛔    |  手机选好节目推送到电视播放  |
 | 局域网NAS    | ⛔    |  选择NAS资源进行播放或推送给电视播放 |
-| 电影         | ⛔    | 暂定支持  |
-| 音乐         | ⛔    | 暂定支持  |
-| 漫画         | ⛔    | 暂定支持  |
-| 小说         | ⛔    | 暂定支持  |
 
 <br></br>
 #### 目前支持的系统:
@@ -43,14 +40,14 @@
 | iOS         | ⛔    | 暂时无法发布         |  |
 | macOS       | ⛔    | 暂时无法发布         |  |
 | Windows     | ✅    | Windows 7 以上的64位系统. |  |
-| GNU/Linux   | ⛔    | 暂时无法发布   | |
+| GNU/Linux   | ⛔    | 暂时无法发布   |   |
 | Web         | ⛔    | 暂时无法发布    |  |
 
 <br></br>
 #### 交互模式:
-- 手机模式
-- PC模式
-- TV模式
+- 手机 触屏操作
+- 电视(Android TV + MacOS TV) 遥控器
+- 平板 + 电脑(Windows + MacOS + Linux) 鼠标操作
 
 <br></br>
 #### 资源来源:
@@ -70,7 +67,6 @@ dependencies:
   get: ^4.6.6                          #GetX
   http: ^1.1.0                         #网络访问
   animate_do: ^3.1.2                   #动画组件
-  card_swiper: ^3.0.1                  #页面卡片
   flutter_svg: ^2.0.9                  #SVG图标
   date_format: ^2.0.7                  #日期格式
   window_manager: ^0.3.7               #窗口管理
@@ -78,8 +74,6 @@ dependencies:
   device_info_plus: ^9.1.0             #设备信息
   flutter_easyloading: ^3.0.5          #提示信息
   cached_network_image: ^3.3.0         #图片缓存
-  smooth_page_indicator: ^1.1.0        #页面指示器
-  flutter_staggered_grid_view: ^0.7.0  #grid_view
   media_kit: ^1.1.10+1                 #
   media_kit_video: ^1.2.4              #
   media_kit_libs_video: ^1.0.4         #
