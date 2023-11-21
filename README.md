@@ -11,6 +11,9 @@
 - ## QQ群 623512997
 
 
+<img src="https://raw.githubusercontent.com/944095635/DMC/master/phone.png" width='360'>
+
+
 <br></br>
 #### 做这个软件的起因
 
