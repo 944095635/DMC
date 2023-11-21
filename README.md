@@ -13,6 +13,8 @@
 <br></br>
 
 <img src="https://raw.githubusercontent.com/944095635/DMC/master/phone.png" width='360'>
+<img src="https://raw.githubusercontent.com/944095635/DMC/master/mac.png" >
+<img src="https://raw.githubusercontent.com/944095635/DMC/master/desktop.png" >
 
 
 <br></br>
