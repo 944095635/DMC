@@ -41,7 +41,7 @@
 | Android     | ✅    | 手机 Phone 平板 Tablet 电视 TV  | [下载](https://github.com/944095635/DMC/releases) |
 | iOS         | ⛔    | 暂时无法发布         |  |
 | macOS       | ⛔    | 暂时无法发布         |  |
-| Windows     | ✅    | Windows 7 以上的64位系统. |  |
+| Windows     | ✅    | Windows 7 以上的64位系统. | [下载](https://github.com/944095635/DMC/releases) / 可能需要安装C++ runtime 2015|
 | GNU/Linux   | ⛔    | 暂时无法发布   |   |
 | Web         | ⛔    | 暂时无法发布    |  |
 
