@@ -89,7 +89,7 @@ class MyApp extends StatelessWidget {
             elevation: 0,
             toolbarHeight: 50,
             scrolledUnderElevation: 0,
-            foregroundColor: Colors.white,
+            foregroundColor: Colors.black,
             shadowColor: Colors.transparent,
             surfaceTintColor: Colors.transparent,
             backgroundColor: Colors.transparent,

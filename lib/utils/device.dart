@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:dmc/model/enum/device_type.dart';
 import 'package:dmc/model/enum/view_type.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Device {
+class DeviceUtils {
   /// 当前设备的类型
   static DeviceType deviceType = DeviceType.unknow;
 
@@ -32,6 +35,20 @@ class Device {
         DeviceOrientation.landscapeLeft,
       ]);
     }
+  }
+
+  /// 读取保存的设备信息
+  static Future<bool> loadDeviceSaved() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var deviceTypeJson = prefs.getString("DeviceType");
+    var viewTypeJson = prefs.getString("ViewType");
+
+    if (deviceTypeJson != null && viewTypeJson != null) {
+      deviceType = json.decode(deviceTypeJson);
+      viewType = json.decode(viewTypeJson);
+      return true;
+    }
+    return false;
   }
 
   // SystemChrome.setEnabledSystemUIMode(

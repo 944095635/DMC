@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:animate_do/animate_do.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dmc/model/enum/view_type.dart';
+import 'package:dmc/page/device/device_chose_page.dart';
 import 'package:dmc/page/phone/player_page.dart' as phone;
 import 'package:dmc/page/tv/player_page.dart' as tv;
 import 'package:dmc/utils/device.dart';
@@ -50,35 +51,15 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void init() async {
-    //判断当前的设备是什么类型
-    if (Platform.isWindows) {
-      Device.viewType = ViewType.plus;
-      Device.deviceType = DeviceType.pc;
-    } else if (Platform.isAndroid) {
-      //安卓要区分 手机 / 平板 /电视
-      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-
-      // double sizeInches = androidInfo.displayMetrics.sizeInches;
-      // double widthInches = androidInfo.displayMetrics.widthInches;
-      if (androidInfo.displayMetrics.xDpi == 72 ||
-          androidInfo.displayMetrics.yDpi == 72) {
-        Device.viewType = ViewType.phone;
-        Device.deviceType = DeviceType.phone; //模拟器
-      } else if (androidInfo.displayMetrics.sizeInches < 7) {
-        Device.viewType = ViewType.phone;
-        Device.deviceType = DeviceType.phone; //设备小于7寸 手机
-      } else if (androidInfo.displayMetrics.sizeInches < 16) {
-        Device.viewType = ViewType.plus;
-        Device.deviceType = DeviceType.tablet; //设备小于16寸 平板
-      } else {
-        Device.viewType = ViewType.tv;
-        Device.deviceType = DeviceType.tv; //设备 电视 TV
-      }
+    //读取保存的设备信息
+    bool status = await DeviceUtils.loadDeviceSaved();
+    if (!status) {
+      //读取不到代表首次启动
+      await Get.to(() => const DeviceChosePage());
     }
 
     //设置屏幕方向
-    await Device.setPreferredOrientations();
+    await DeviceUtils.setPreferredOrientations();
 
     //初始化 电视台列表
     await TvHelper.init();
@@ -92,7 +73,7 @@ class _SplashPageState extends State<SplashPage> {
     await Future.delayed(const Duration(milliseconds: 500));
 
     //根据设备类型跳转不同的起始页面
-    switch (Device.viewType) {
+    switch (DeviceUtils.viewType) {
       case ViewType.phone:
         Get.off(() => const phone.PlayerPage(), transition: Transition.fadeIn);
         break;

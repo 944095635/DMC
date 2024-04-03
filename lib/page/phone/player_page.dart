@@ -211,7 +211,7 @@ class PlayerPage extends GetView<PlayerPageController> {
     Video video = Video(
       controller: controller.mediaKitController,
       onExitFullscreen: () async {
-        Device.setPreferredOrientations();
+        DeviceUtils.setPreferredOrientations();
       },
     );
     return MaterialVideoControlsTheme(
