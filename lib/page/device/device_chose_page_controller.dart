@@ -30,6 +30,9 @@ class DeviceChosePageController extends GetxController with StateMixin {
       DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
       AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
 
+      //bool isTV =
+      //    androidInfo.systemFeatures.contains('android.software.leanback');
+
       // double sizeInches = androidInfo.displayMetrics.sizeInches;
       // double widthInches = androidInfo.displayMetrics.widthInches;
       if (androidInfo.displayMetrics.xDpi == 72 ||
