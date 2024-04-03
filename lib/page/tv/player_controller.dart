@@ -1,9 +1,9 @@
 import 'package:dmc/page/common/tv_play_mixin.dart';
+import 'package:dmc/provider/tv_provider.dart';
 import 'package:dmc/utils/pc_helper.dart';
-import 'package:dmc/utils/tv_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:indexed_list_view/indexed_list_view.dart';
 
@@ -48,14 +48,14 @@ class PlayerPageController extends GetxController with TvPlayMixin, StateMixin {
   // #region 节目选择
   /// 选择上一个节目
   void selectPrevious() {
-    debugPrint("当前Index:$selectIndex,总数量:${TvHelper.length}");
+    debugPrint("当前Index:$selectIndex,总数量:${TvProvider.length}");
     String fromIndex;
     if (selectIndex > 0) {
       fromIndex = (selectIndex.value + 1).toString();
       selectIndex.value--;
     } else {
       fromIndex = "1";
-      selectIndex.value = TvHelper.length - 1; //跳到长度-1的下标
+      selectIndex.value = TvProvider.length - 1; //跳到长度-1的下标
     }
     var toIndex = (selectIndex.value + 1).toString();
     debugPrint("目前是第$fromIndex个节目,跳转到$toIndex个节目");
@@ -64,13 +64,13 @@ class PlayerPageController extends GetxController with TvPlayMixin, StateMixin {
 
   /// 选择下一个节目
   void selectNext() {
-    debugPrint("当前Index:$selectIndex,总数量:${TvHelper.length}");
+    debugPrint("当前Index:$selectIndex,总数量:${TvProvider.length}");
     String fromIndex;
-    if (selectIndex.value + 1 < TvHelper.length) {
+    if (selectIndex.value + 1 < TvProvider.length) {
       fromIndex = (selectIndex.value + 1).toString();
       selectIndex.value++;
     } else {
-      fromIndex = TvHelper.length.toString(); //最后一个
+      fromIndex = TvProvider.length.toString(); //最后一个
       selectIndex.value = 0; //跳到第一个的下标
     }
     var toIndex = (selectIndex.value + 1).toString();
@@ -110,7 +110,7 @@ class PlayerPageController extends GetxController with TvPlayMixin, StateMixin {
           showTvListMenu(true);
           break;
         case LogicalKeyboardKey.contextMenu: //MENU 82
-          EasyLoading.showSuccess("MENU");
+          SmartDialog.showToast("MENU");
           break;
       }
     }
@@ -142,7 +142,7 @@ class PlayerPageController extends GetxController with TvPlayMixin, StateMixin {
         showTvListMenu(true);
         break;
       case LogicalKeyboardKey.contextMenu: //MENU 82
-        EasyLoading.showSuccess("MENU");
+        SmartDialog.showToast("MENU");
         break;
     }
   }
@@ -188,7 +188,7 @@ class PlayerPageController extends GetxController with TvPlayMixin, StateMixin {
       //上19(↑) 下20(↓)  左21(←) 右22(→) 确定23(OK)
       //后退4(back) 菜单82(MENU)
       debugPrint("遥控器:$value");
-      EasyLoading.showSuccess(rawKey.logicalKey.toString());
+      SmartDialog.showToast(rawKey.logicalKey.toString());
 
       if (isShowTvListMenu.value) {
         //打开电视列表菜单的时候 按键逻辑
@@ -201,7 +201,7 @@ class PlayerPageController extends GetxController with TvPlayMixin, StateMixin {
   }
 
   void ok() {
-    play(TvHelper.tvs[playeIndex.value]);
+    play(TvProvider.tvs[playeIndex.value]);
   }
 
   void showMenu({bool show = true}) {
@@ -289,8 +289,8 @@ class PlayerPageController extends GetxController with TvPlayMixin, StateMixin {
         debugPrint(
             "节点:${currentTv.value!.sourceId}/${currentTv.value!.source.length}");
         ok();
-        TvHelper.save();
-        TvHelper.tvs.refresh();
+        TvProvider.save();
+        TvProvider.tvs.refresh();
       }
     } else {
       showMenu();

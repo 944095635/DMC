@@ -2,9 +2,8 @@ import 'package:dmc/extension/size_extension.dart';
 import 'package:dmc/model/enum/device_type.dart';
 import 'package:dmc/model/enum/view_type.dart';
 import 'package:dmc/page/device/device_chose_page_controller.dart';
+import 'package:dmc/widget/card_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 /// 选择设备页面
@@ -19,165 +18,130 @@ class DeviceChosePage extends GetView<DeviceChosePageController> {
         title: const Text("选择设备类型"),
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: controller.save,
             child: const Text("完成"),
           ),
           10.horizontalSpace,
         ],
       ),
+      backgroundColor: const Color(0xFFFEFEFE),
       body: controller.obx(
         (state) => ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.all(20),
           children: [
-            20.verticalSpace,
-            const Text("设备类型:"),
-            20.verticalSpace,
-            Wrap(
-              spacing: 10,
-              runSpacing: 10,
+            const Text(
+              "设备类型:",
+              style: TextStyle(fontSize: 20),
+            ),
+            10.verticalSpace,
+            GridView(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 200,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                childAspectRatio: 0.86,
+              ),
               children: [
-                buildItem(DeviceType.phone),
-                buildItem(DeviceType.tablet),
-                buildItem(DeviceType.pc),
-                buildItem(DeviceType.tv)
+                Obx(
+                  () => CardButton(
+                    selected: controller.deviceType.value == DeviceType.phone,
+                    color: const Color(0xFF235EFF),
+                    title: DeviceType.phone.toString(),
+                    icon: "assets/phone.svg",
+                    onSelected: () {
+                      controller.deviceType.value = DeviceType.phone;
+                    },
+                  ),
+                ),
+                Obx(
+                  () => CardButton(
+                    selected: controller.deviceType.value == DeviceType.tablet,
+                    color: const Color.fromARGB(255, 241, 179, 233),
+                    title: DeviceType.tablet.toString(),
+                    icon: "assets/tablet.svg",
+                    onSelected: () {
+                      controller.deviceType.value = DeviceType.tablet;
+                    },
+                  ),
+                ),
+                Obx(
+                  () => CardButton(
+                    selected: controller.deviceType.value == DeviceType.pc,
+                    color: const Color(0xFF8FCFEA),
+                    title: DeviceType.pc.toString(),
+                    icon: "assets/pc.svg",
+                    onSelected: () {
+                      controller.deviceType.value = DeviceType.pc;
+                    },
+                  ),
+                ),
+                Obx(
+                  () => CardButton(
+                    selected: controller.deviceType.value == DeviceType.tv,
+                    color: const Color.fromARGB(144, 161, 30, 205),
+                    title: DeviceType.tv.toString(),
+                    icon: "assets/tv.svg",
+                    onSelected: () {
+                      controller.deviceType.value = DeviceType.tv;
+                    },
+                  ),
+                ),
               ],
             ),
-            20.verticalSpace,
-            const Text("交互类型(不建议修改):"),
-            20.verticalSpace,
-            Wrap(
-              spacing: 10,
-              runSpacing: 10,
+            30.verticalSpace,
+            const Text(
+              "交互类型(不建议修改):",
+              style: TextStyle(fontSize: 20),
+            ),
+            10.verticalSpace,
+            GridView(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 200,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+              ),
               children: [
-                buildViewItem(ViewType.phone),
-                buildViewItem(ViewType.plus),
-                buildViewItem(ViewType.tv),
+                Obx(
+                  () => CardButton(
+                    selected: controller.viewType.value == ViewType.phone,
+                    color: const Color(0xFF1ECD84),
+                    title: "触屏",
+                    icon: "assets/finger.svg",
+                    onSelected: () {
+                      controller.viewType.value = ViewType.phone;
+                    },
+                  ),
+                ),
+                Obx(
+                  () => CardButton(
+                    selected: controller.viewType.value == ViewType.plus,
+                    color: const Color.fromARGB(255, 137, 161, 151),
+                    title: "键鼠",
+                    icon: "assets/keyboard.svg",
+                    onSelected: () {
+                      controller.viewType.value = ViewType.plus;
+                    },
+                  ),
+                ),
+                Obx(
+                  () => CardButton(
+                    selected: controller.viewType.value == ViewType.tv,
+                    color: const Color.fromARGB(255, 247, 189, 132),
+                    title: "遥控器",
+                    icon: "assets/control.svg",
+                    onSelected: () {
+                      controller.viewType.value = ViewType.tv;
+                    },
+                  ),
+                ),
               ],
-            )
+            ),
           ],
         ),
-      ),
-    );
-  }
-
-  buildItem(DeviceType type) {
-    return Focus(
-      onFocusChange: (value) {
-        if (value) {
-          controller.deviceType.value = type;
-        }
-      },
-      onKeyEvent: (node, event) {
-        if (event is KeyDownEvent) {
-          if (event.logicalKey == LogicalKeyboardKey.accept ||
-              event.logicalKey == LogicalKeyboardKey.select ||
-              event.logicalKey == LogicalKeyboardKey.enter) {
-            node.requestFocus();
-            return KeyEventResult.handled;
-          }
-        }
-        return KeyEventResult.ignored;
-      },
-      child: Builder(
-        builder: (context) {
-          FocusNode node = Focus.of(context);
-          return GestureDetector(
-            onTap: () {
-              node.requestFocus();
-            },
-            child: Obx(
-              () => Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(
-                      color: controller.deviceType.value == type
-                          ? Colors.pink
-                          : Colors.grey,
-                    ),
-                    boxShadow: node.hasFocus
-                        ? [
-                            const BoxShadow(
-                              color: Colors.pink,
-                              blurRadius: 5,
-                              blurStyle: BlurStyle.outer,
-                            )
-                          ]
-                        : null),
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  type.toString(),
-                ),
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  buildViewItem(ViewType type) {
-    String viewName;
-    switch (type) {
-      case ViewType.phone:
-        viewName = "触屏操作";
-        break;
-      case ViewType.plus:
-        viewName = "鼠标操作";
-        break;
-      case ViewType.tv:
-        viewName = "遥控器操作";
-        break;
-      default:
-        viewName = "未知";
-    }
-    return Focus(
-      onFocusChange: (value) {
-        if (value) {
-          controller.viewType.value = type;
-        }
-      },
-      onKeyEvent: (node, event) {
-        if (event is KeyDownEvent) {
-          if (event.logicalKey == LogicalKeyboardKey.accept ||
-              event.logicalKey == LogicalKeyboardKey.select ||
-              event.logicalKey == LogicalKeyboardKey.enter) {
-            node.requestFocus();
-            return KeyEventResult.handled;
-          }
-        }
-        return KeyEventResult.ignored;
-      },
-      child: Builder(
-        builder: (context) {
-          FocusNode node = Focus.of(context);
-          return GestureDetector(
-            onTap: () {
-              node.requestFocus();
-            },
-            child: Obx(
-              () => Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(
-                      color: controller.viewType.value == type
-                          ? Colors.pink
-                          : Colors.grey,
-                    ),
-                    boxShadow: node.hasFocus
-                        ? [
-                            const BoxShadow(
-                              color: Colors.pink,
-                              blurRadius: 5,
-                              blurStyle: BlurStyle.outer,
-                            )
-                          ]
-                        : null),
-                padding: const EdgeInsets.all(20),
-                child: Text(viewName),
-              ),
-            ),
-          );
-        },
       ),
     );
   }

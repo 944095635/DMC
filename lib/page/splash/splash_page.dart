@@ -1,14 +1,11 @@
-import 'dart:io';
 import 'package:animate_do/animate_do.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dmc/model/enum/view_type.dart';
 import 'package:dmc/page/device/device_chose_page.dart';
 import 'package:dmc/page/phone/player_page.dart' as phone;
-import 'package:dmc/page/tv/player_page.dart' as tv;
-import 'package:dmc/utils/device.dart';
-import 'package:dmc/model/enum/device_type.dart';
+import 'package:dmc/page/tv/home_page.dart';
+import 'package:dmc/provider/tv_provider.dart';
+import 'package:dmc/utils/device_utils.dart';
 import 'package:dmc/style/theme.dart';
-import 'package:dmc/utils/tv_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -52,7 +49,7 @@ class _SplashPageState extends State<SplashPage> {
 
   void init() async {
     //读取保存的设备信息
-    bool status = await DeviceUtils.loadDeviceSaved();
+    bool status = await DeviceUtils.loadDeviceConfig();
     if (!status) {
       //读取不到代表首次启动
       await Get.to(() => const DeviceChosePage());
@@ -62,7 +59,7 @@ class _SplashPageState extends State<SplashPage> {
     await DeviceUtils.setPreferredOrientations();
 
     //初始化 电视台列表
-    await TvHelper.init();
+    await TvProvider.init();
 
     await Future.delayed(const Duration(seconds: 1));
 
@@ -78,10 +75,10 @@ class _SplashPageState extends State<SplashPage> {
         Get.off(() => const phone.PlayerPage(), transition: Transition.fadeIn);
         break;
       case ViewType.plus:
-        Get.off(() => const tv.PlayerPage(), transition: Transition.fadeIn);
+        Get.off(() => const TvHomePage(), transition: Transition.fadeIn);
         break;
       case ViewType.tv:
-        Get.off(() => const tv.PlayerPage(), transition: Transition.fadeIn);
+        Get.offAll(() => const TvHomePage(), transition: Transition.fadeIn);
         break;
       default:
     }

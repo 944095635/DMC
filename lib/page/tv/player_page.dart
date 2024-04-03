@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:dmc/extension/size_extension.dart';
 import 'package:dmc/model/tv/tv.dart';
 import 'package:dmc/page/tv/player_controller.dart';
+import 'package:dmc/provider/tv_provider.dart';
 import 'package:dmc/utils/pc_helper.dart';
-import 'package:dmc/utils/tv_helper.dart';
 import 'package:dmc/widget/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -91,9 +91,9 @@ class PlayerPage extends GetView<PlayerPageController> {
         child: IndexedListView.builder(
           controller: controller.tvListController,
           minItemCount: 0,
-          maxItemCount: TvHelper.tvs.length - 1,
+          maxItemCount: TvProvider.tvs.length - 1,
           itemBuilder: (context, index) {
-            Tv tv = TvHelper.tvs[index];
+            Tv tv = TvProvider.tvs[index];
             return Obx(
               () => Container(
                 constraints: const BoxConstraints(minHeight: 50),
@@ -199,9 +199,9 @@ class PlayerPage extends GetView<PlayerPageController> {
         mainAxisExtent: 50,
         crossAxisCount: 3,
       ),
-      itemCount: TvHelper.tvs.length,
+      itemCount: TvProvider.tvs.length,
       itemBuilder: (context, index) {
-        return buildTvItem(TvHelper.tvs[index]);
+        return buildTvItem(TvProvider.tvs[index]);
       },
     );
   }

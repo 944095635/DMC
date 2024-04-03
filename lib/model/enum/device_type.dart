@@ -1,18 +1,21 @@
 enum DeviceType {
   /// 未知
-  unknow,
-
-  /// 平板
-  tablet(),
+  unknow(0),
 
   /// 手机
-  phone,
+  phone(1),
+
+  /// 平板
+  tablet(2),
 
   /// 电脑(Windows + MacOS + Linux)
-  pc,
+  pc(3),
 
   /// 电视(Android TV + MacOS TV)
-  tv;
+  tv(4);
+
+  final int code;
+  const DeviceType(this.code);
 
   @override
   String toString() {
@@ -20,11 +23,11 @@ enum DeviceType {
       case DeviceType.phone:
         return "手机";
       case DeviceType.pc:
-        return "电脑(Windows + MacOS + Linux)";
+        return "电脑(Windows/MacOS/Linux)";
       case DeviceType.tablet:
         return "平板";
       case DeviceType.tv:
-        return "电视(暂时只支持安卓)";
+        return "电视(AndroidTV/MacTV)";
       default:
         return "未知";
     }

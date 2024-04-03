@@ -1,8 +1,8 @@
 import 'package:dmc/extension/size_extension.dart';
 import 'package:dmc/model/tv/tv.dart';
 import 'package:dmc/page/phone/player_controller.dart';
-import 'package:dmc/utils/device.dart';
-import 'package:dmc/utils/tv_helper.dart';
+import 'package:dmc/provider/tv_provider.dart';
+import 'package:dmc/utils/device_utils.dart';
 import 'package:dmc/widget/star.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -154,15 +154,15 @@ class PlayerPage extends GetView<PlayerPageController> {
         mainAxisExtent: 50,
         crossAxisCount: 3,
       ),
-      itemCount: TvHelper.tvs.length,
+      itemCount: TvProvider.tvs.length,
       itemBuilder: (context, index) {
-        return buildTvItem(TvHelper.tvs[index]);
+        return buildTvItem(TvProvider.tvs[index]);
       },
     );
   }
 
   Widget buildListLike() {
-    var list = TvHelper.tvs.where((p0) => p0.star).toList();
+    var list = TvProvider.tvs.where((p0) => p0.star).toList();
     return GridView.builder(
       padding: const EdgeInsets.all(20),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

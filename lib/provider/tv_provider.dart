@@ -1,11 +1,12 @@
 import 'dart:convert';
+
 import 'package:dmc/model/tv/tv.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// 电视类
-class TvHelper {
+/// 电视台数据提供
+class TvProvider {
   /// 电视节目列表
   static RxList<Tv> tvs = RxList.empty();
 
@@ -22,9 +23,9 @@ class TvHelper {
       var list = json.decode(jsonStr);
       int index = 0;
       for (var item in list) {
-        if (index >= 20) {
-          break;
-        }
+        //if (index >= 20) {
+        //  break;
+        //}
         tvs.add(Tv.fromJson(item));
         index++;
       }
@@ -43,6 +44,7 @@ class TvHelper {
     return prefs.setString("tvs", json.encode(tvs));
   }
 
+  /// 读取电视台列表
   static Future _loadTVs() async {
     String jsonStr1 = await rootBundle.loadString("assets/CCTV.json");
     String jsonStr2 = await rootBundle.loadString("assets/NOCCTV.json");

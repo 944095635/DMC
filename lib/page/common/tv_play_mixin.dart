@@ -1,5 +1,5 @@
 import 'package:dmc/model/tv/tv.dart';
-import 'package:dmc/utils/tv_helper.dart';
+import 'package:dmc/provider/tv_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:media_kit/media_kit.dart';
@@ -44,14 +44,14 @@ mixin TvPlayMixin on GetxController {
     currentTv.value!.sourceId = i;
     currentTv.refresh();
     play(currentTv.value!);
-    TvHelper.save();
+    TvProvider.save();
   }
 
   void like() {
     currentTv.value!.star = !currentTv.value!.star;
     currentTv.refresh();
-    TvHelper.tvs.refresh();
-    TvHelper.save();
+    TvProvider.tvs.refresh();
+    TvProvider.save();
   }
 
   /// 暂停TV节目

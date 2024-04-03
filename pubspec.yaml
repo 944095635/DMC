@@ -17,7 +17,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
 # 2023-11-22-00-00
-version: 1.1.11+1
+version: 1.1.12+1
 
 environment:
   sdk: '>=3.2.0 <4.0.0'
@@ -45,11 +45,14 @@ dependencies:
   device_info_plus: ^9.1.0             #设备信息
   indexed_list_view: ^3.0.1            #排序ListView
   shared_preferences: ^2.2.2           #数据存储
-  flutter_easyloading: ^3.0.5          #加载提示
+  #---------------------------------------------------------------------
+  flutter_smart_dialog: ^4.9.6         #提示窗 加载窗
   cached_network_image: ^3.3.0         #图片缓存
-  media_kit: ^1.1.10+1                 #
-  media_kit_video: ^1.2.4              #
-  media_kit_libs_video: ^1.0.4         #
+  #---------------------------------------------------------------------
+  media_kit: ^1.1.10+1                 #视频播放主包
+  media_kit_video: ^1.2.4              #视频渲染支持
+  media_kit_libs_video: ^1.0.4         #视频解码支持
+  #media_kit_libs_audio: ^1.0.4        #音频解码支持
 
 flutter_launcher_icons:
   android: "launcher_icon"
@@ -97,6 +100,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+      - assets/
       - assets/CCTV.json
       - assets/NOCCTV.json
       - assets/image/

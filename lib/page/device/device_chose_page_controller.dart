@@ -3,7 +3,8 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dmc/model/enum/device_type.dart';
 import 'package:dmc/model/enum/view_type.dart';
-import 'package:dmc/utils/device.dart';
+import 'package:dmc/utils/device_utils.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 
 /// 设备选择控制器
@@ -53,5 +54,14 @@ class DeviceChosePageController extends GetxController with StateMixin {
     viewType.value = DeviceUtils.viewType;
     deviceType.value = DeviceUtils.deviceType;
     change(null, status: RxStatus.success());
+  }
+
+  /// 保存
+  void save() async {
+    SmartDialog.showLoading(msg: "保存中..");
+    SmartDialog.dismiss();
+    await DeviceUtils.saveDeviceConfig(deviceType.value, viewType.value);
+    SmartDialog.showToast("保存成功");
+    Get.back();
   }
 }

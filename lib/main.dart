@@ -3,7 +3,7 @@ import 'package:dmc/page/splash/splash_page.dart';
 import 'package:dmc/style/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:window_manager/window_manager.dart';
@@ -147,14 +147,14 @@ class MyApp extends StatelessWidget {
           //  ThemeColors.light,
           //],
           ),
-      builder: EasyLoading.init(
-        builder: (context, child) => GestureDetector(
-          onTap: () {
-            FocusManager.instance.primaryFocus?.unfocus();
-            //await Future.delayed(const Duration(milliseconds: 300));
-          },
-          child: child!,
-        ),
+      builder: FlutterSmartDialog.init(
+        //builder: (context, child) => GestureDetector(
+        //  onTap: () {
+        //    FocusManager.instance.primaryFocus?.unfocus();
+        //    //await Future.delayed(const Duration(milliseconds: 300));
+        //  },
+        //  child: child!,
+        //),
         //builder: (context, child) => MediaQuery(
         //  data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
         //  child: child!,
