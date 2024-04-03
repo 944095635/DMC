@@ -1,8 +1,10 @@
+import 'package:dmc/extension/size_extension.dart';
 import 'package:dmc/model/enum/device_type.dart';
 import 'package:dmc/model/enum/view_type.dart';
 import 'package:dmc/page/device/device_chose_page_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 /// 选择设备页面
@@ -15,13 +17,24 @@ class DeviceChosePage extends GetView<DeviceChosePageController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("选择设备类型"),
+        actions: [
+          TextButton(
+            onPressed: () {},
+            child: const Text("完成"),
+          ),
+          10.horizontalSpace,
+        ],
       ),
       body: controller.obx(
         (state) => ListView(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           children: [
+            20.verticalSpace,
             const Text("设备类型:"),
-            Row(
+            20.verticalSpace,
+            Wrap(
+              spacing: 10,
+              runSpacing: 10,
               children: [
                 buildItem(DeviceType.phone),
                 buildItem(DeviceType.tablet),
@@ -29,8 +42,12 @@ class DeviceChosePage extends GetView<DeviceChosePageController> {
                 buildItem(DeviceType.tv)
               ],
             ),
+            20.verticalSpace,
             const Text("交互类型(不建议修改):"),
-            Row(
+            20.verticalSpace,
+            Wrap(
+              spacing: 10,
+              runSpacing: 10,
               children: [
                 buildViewItem(ViewType.phone),
                 buildViewItem(ViewType.plus),
@@ -45,12 +62,17 @@ class DeviceChosePage extends GetView<DeviceChosePageController> {
 
   buildItem(DeviceType type) {
     return Focus(
+      onFocusChange: (value) {
+        if (value) {
+          controller.deviceType.value = type;
+        }
+      },
       onKeyEvent: (node, event) {
         if (event is KeyDownEvent) {
           if (event.logicalKey == LogicalKeyboardKey.accept ||
               event.logicalKey == LogicalKeyboardKey.select ||
               event.logicalKey == LogicalKeyboardKey.enter) {
-            controller.deviceType.value = type;
+            node.requestFocus();
             return KeyEventResult.handled;
           }
         }
@@ -59,28 +81,32 @@ class DeviceChosePage extends GetView<DeviceChosePageController> {
       child: Builder(
         builder: (context) {
           FocusNode node = Focus.of(context);
-          return Obx(
-            () => Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  border: Border.all(
-                    color: controller.deviceType.value == type
-                        ? Colors.pink
-                        : Colors.grey,
-                  ),
-                  boxShadow: node.hasFocus
-                      ? [
-                          const BoxShadow(
-                            color: Colors.pink,
-                            blurRadius: 5,
-                            blurStyle: BlurStyle.outer,
-                          )
-                        ]
-                      : null),
-              margin: const EdgeInsets.all(20),
-              padding: const EdgeInsets.all(20),
-              child: Text(
-                type.toString(),
+          return GestureDetector(
+            onTap: () {
+              node.requestFocus();
+            },
+            child: Obx(
+              () => Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(
+                      color: controller.deviceType.value == type
+                          ? Colors.pink
+                          : Colors.grey,
+                    ),
+                    boxShadow: node.hasFocus
+                        ? [
+                            const BoxShadow(
+                              color: Colors.pink,
+                              blurRadius: 5,
+                              blurStyle: BlurStyle.outer,
+                            )
+                          ]
+                        : null),
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  type.toString(),
+                ),
               ),
             ),
           );
@@ -105,12 +131,17 @@ class DeviceChosePage extends GetView<DeviceChosePageController> {
         viewName = "未知";
     }
     return Focus(
+      onFocusChange: (value) {
+        if (value) {
+          controller.viewType.value = type;
+        }
+      },
       onKeyEvent: (node, event) {
         if (event is KeyDownEvent) {
           if (event.logicalKey == LogicalKeyboardKey.accept ||
               event.logicalKey == LogicalKeyboardKey.select ||
               event.logicalKey == LogicalKeyboardKey.enter) {
-            controller.viewType.value = type;
+            node.requestFocus();
             return KeyEventResult.handled;
           }
         }
@@ -119,27 +150,31 @@ class DeviceChosePage extends GetView<DeviceChosePageController> {
       child: Builder(
         builder: (context) {
           FocusNode node = Focus.of(context);
-          return Obx(
-            () => Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  border: Border.all(
-                    color: controller.viewType.value == type
-                        ? Colors.pink
-                        : Colors.grey,
-                  ),
-                  boxShadow: node.hasFocus
-                      ? [
-                          const BoxShadow(
-                            color: Colors.pink,
-                            blurRadius: 5,
-                            blurStyle: BlurStyle.outer,
-                          )
-                        ]
-                      : null),
-              margin: const EdgeInsets.all(20),
-              padding: const EdgeInsets.all(20),
-              child: Text(viewName),
+          return GestureDetector(
+            onTap: () {
+              node.requestFocus();
+            },
+            child: Obx(
+              () => Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(
+                      color: controller.viewType.value == type
+                          ? Colors.pink
+                          : Colors.grey,
+                    ),
+                    boxShadow: node.hasFocus
+                        ? [
+                            const BoxShadow(
+                              color: Colors.pink,
+                              blurRadius: 5,
+                              blurStyle: BlurStyle.outer,
+                            )
+                          ]
+                        : null),
+                padding: const EdgeInsets.all(20),
+                child: Text(viewName),
+              ),
             ),
           );
         },
