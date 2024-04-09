@@ -38,7 +38,7 @@ dependencies:
   get: ^4.6.6                          #GetX
   http: ^1.1.0                         #网络访问
   animate_do: ^3.1.2                   #动画组件
-  flutter_svg: ^2.0.9                  #SVG图标
+  flutter_svg: ^2.0.10+1                  #SVG图标
   date_format: ^2.0.7                  #日期格式
   window_manager: ^0.3.7               #窗口管理
   json_annotation: ^4.8.1              #JSON

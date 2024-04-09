@@ -23,6 +23,12 @@ class TvPlayerPageController extends GetxController {
   }
 
   @override
+  void onClose() {
+    super.onClose();
+    player.dispose();
+  }
+
+  @override
   void dispose() {
     super.dispose();
     player.dispose();
