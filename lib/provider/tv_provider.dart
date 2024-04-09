@@ -21,13 +21,13 @@ class TvProvider {
     if (prefs.containsKey("tvs")) {
       String jsonStr = prefs.getString("tvs")!;
       var list = json.decode(jsonStr);
-      int index = 0;
+      //int index = 0;
       for (var item in list) {
         //if (index >= 20) {
         //  break;
         //}
         tvs.add(Tv.fromJson(item));
-        index++;
+        //index++;
       }
     } else {
       //从配置文件中读取

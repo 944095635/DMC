@@ -1,4 +1,5 @@
 import 'package:dmc/model/tv/tv.dart';
+import 'package:dmc/page/tv/tv_player_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:media_kit/media_kit.dart';
@@ -34,10 +35,7 @@ class TvPlayerPageController extends GetxController {
   }
 
   void showMenu() {
-    menuController?.forward();
-  }
-
-  void hideMenu() {
-    menuController?.reset();
+    //menuController?.forward();
+    Get.dialog(const TvPlayerMenuPage());
   }
 }

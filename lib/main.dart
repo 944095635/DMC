@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
       home: const SplashPage(),
       theme: ThemeData(
           fontFamily: Platform.isWindows ? miFontFamily : null,
-          scaffoldBackgroundColor: const Color(0xFFF8F8F8),
+          scaffoldBackgroundColor: const Color(0xFF131314),
           cardColor: Colors.white,
           colorScheme: const ColorScheme.light(
             primary: Colors.black, //文字颜色
@@ -55,8 +55,8 @@ class MyApp extends StatelessWidget {
             onSurface: Colors.black, //部分区域的文字
             surfaceTint: Colors.transparent,
 
-            background: Colors.black,
-            onBackground: Colors.white,
+            background: Color(0xFF131314),
+            onBackground: Color(0xFF131314),
 
             //        ColorScheme ColorScheme.light({
             // Brightness brightness = Brightness.light,
@@ -106,10 +106,28 @@ class MyApp extends StatelessWidget {
               shape: MaterialStatePropertyAll(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
-                ),
+                ), 
               ),
-              backgroundColor: const MaterialStatePropertyAll(Colors.black),
-              foregroundColor: const MaterialStatePropertyAll(Colors.white),
+              fixedSize: MaterialStateProperty.resolveWith((states) {
+                if (states.contains(MaterialState.focused)) {
+                  return const Size(300, 60);
+                }
+                return const Size(180, 30);
+              }),
+              minimumSize: const MaterialStatePropertyAll(Size.zero),
+              //444746
+              backgroundColor: MaterialStateProperty.resolveWith((states) {
+                if (states.contains(MaterialState.focused)) {
+                  return const Color(0xFFE3E3E3);
+                }
+                return const Color(0xFF262728);
+              }),
+              foregroundColor: MaterialStateProperty.resolveWith((states) {
+                if (states.contains(MaterialState.focused)) {
+                  return const Color(0xFF303030);
+                }
+                return const Color(0xFFE3E3E3);
+              }),
             ),
           ),
           bottomAppBarTheme: const BottomAppBarTheme(
@@ -148,18 +166,18 @@ class MyApp extends StatelessWidget {
           //],
           ),
       builder: FlutterSmartDialog.init(
-        //builder: (context, child) => GestureDetector(
-        //  onTap: () {
-        //    FocusManager.instance.primaryFocus?.unfocus();
-        //    //await Future.delayed(const Duration(milliseconds: 300));
-        //  },
-        //  child: child!,
-        //),
-        //builder: (context, child) => MediaQuery(
-        //  data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-        //  child: child!,
-        //),
-      ),
+          //builder: (context, child) => GestureDetector(
+          //  onTap: () {
+          //    FocusManager.instance.primaryFocus?.unfocus();
+          //    //await Future.delayed(const Duration(milliseconds: 300));
+          //  },
+          //  child: child!,
+          //),
+          //builder: (context, child) => MediaQuery(
+          //  data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+          //  child: child!,
+          //),
+          ),
     );
   }
 }
